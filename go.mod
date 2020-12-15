@@ -1,1 +1,3 @@
-module "torre-response-parser"
+module torre-response-parser
+
+go 1.15
