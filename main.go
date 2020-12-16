@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"strconv"
 	"torre-response-parser/pkg/data"
 	"torre-response-parser/pkg/persons"
 )
@@ -18,7 +17,7 @@ func main() {
 	data.InitDb()
 
 	// file string with path to json file
-	file := FILE_PATH + "people.json"
+	file := FILE_PATH + "people-00.json"
 
 	// jsonFile keeps json file opened
 	jsonFile, err := os.Open(file)
@@ -37,8 +36,8 @@ func main() {
 		fmt.Println(err)
 	}
 
-	for i := 0; i < len(resultados); i++ {
-		fmt.Println("Person N-" + strconv.Itoa(i+1) + ": " + resultados[i].Username)
+	err = persons.LoadToDB(resultados)
+	if err != nil {
+		fmt.Println(err)
 	}
-
 }

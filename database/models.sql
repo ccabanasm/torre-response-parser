@@ -1,10 +1,14 @@
 -- Data structure for Jobs
 CREATE TABLE IF NOT EXISTS organization (
-    id  int NOT NULL UNIQUE,
+    id  serial NOT NULL UNIQUE,
+    org_id int,
     name  text,
     picture  text,
     CONSTRAINT pk_organization PRIMARY KEY(id)
 );
+
+INSERT INTO organization (id, org_id, name, picture)
+VALUES (0, 0, 'No Organization', '');
 
 CREATE TABLE IF NOT EXISTS compensation (
     id serial NOT NULL UNIQUE,
@@ -18,10 +22,11 @@ CREATE TABLE IF NOT EXISTS compensation (
 
 CREATE TABLE IF NOT EXISTS job (
     id serial NOT NULL UNIQUE,
+    job_id text,
     objective text,
     type text,
     organization INT,
-    locations text[],
+    locations text,
     remote BOOLEAN,
     external BOOLEAN,
     deadline timestamptz,
@@ -50,7 +55,7 @@ CREATE TABLE IF NOT EXISTS member (
     member BOOLEAN,
     manager BOOLEAN,
     poster BOOLEAN,
-    weight BOOLEAN,
+    weight real,
     CONSTRAINT pk_member PRIMARY KEY(id)
 );
 
@@ -73,12 +78,12 @@ CREATE TABLE IF NOT EXISTS job_to_member (
 );
 
 -- person data structure
-CREATE TABLE IF NOT EXISTS compensation (
+CREATE TABLE IF NOT EXISTS person_compensation (
     id serial NOT NULL UNIQUE,
     amount real,
     currency text,
     periodicity text,
-    CONSTRAINT pk_compensation PRIMARY KEY(id)
+    CONSTRAINT pk_p_compensation PRIMARY KEY(id)
 );
 
 CREATE TABLE IF NOT EXISTS compensations (
@@ -87,9 +92,9 @@ CREATE TABLE IF NOT EXISTS compensations (
     employee_id int,
     intern_id int,
     CONSTRAINT pk_compensations PRIMARY KEY(id),
-    CONSTRAINT fk_free_comp FOREIGN KEY (freelancer_id) REFERENCES compensation(id),
-    CONSTRAINT fk_empl_comp FOREIGN KEY (employee_id) REFERENCES compensation(id),
-    CONSTRAINT fk_int_comp FOREIGN KEY (intern_id) REFERENCES compensation(id)
+    CONSTRAINT fk_free_comp FOREIGN KEY (freelancer_id) REFERENCES person_compensation(id),
+    CONSTRAINT fk_empl_comp FOREIGN KEY (employee_id) REFERENCES person_compensation(id),
+    CONSTRAINT fk_int_comp FOREIGN KEY (intern_id) REFERENCES person_compensation(id)
 );
 
 CREATE TABLE IF NOT EXISTS person (
