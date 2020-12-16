@@ -13,7 +13,7 @@ const (
 )
 
 func main() {
-	file := FILE_PATH + "jobs.json"
+	file := FILE_PATH + "jobs-02.json"
 	jsonFile, err := os.Open(file)
 	if err != nil {
 		fmt.Println(err)
@@ -29,7 +29,7 @@ func main() {
 	}
 
 	for i := 0; i < len(resultados); i++ {
-		fmt.Println("Job N-" + strconv.Itoa(i+1) + ": " + resultados[i].Objective)
+		fmt.Println("Job N-" + strconv.Itoa(i+1) + ": " + resultados[i].Type)
 	}
 
 }
