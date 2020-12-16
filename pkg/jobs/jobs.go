@@ -75,6 +75,7 @@ type Question struct {
 	Date time.Time `json:"date"`
 }
 
+// GetResults function unmarshalls a byte response and returns an array o Results
 func GetResults(bytesJobs []byte) ([]Result, error) {
 	var jobs Jobs
 
