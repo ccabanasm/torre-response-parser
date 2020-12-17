@@ -249,7 +249,9 @@ func SetJobToMember(jobID, memberID int) error {
 
 func LoadToDB(results []Result) error {
 	for i := 0; i < len(results); i++ {
-		fmt.Println("Job N-", i)
+		if i%100 == 0 {
+			fmt.Println("Job N-", i)
+		}
 		orgID := 0
 		if len(results[i].Organizations) > 0 {
 			id, err := OrganizationSave(results[i].Organizations)

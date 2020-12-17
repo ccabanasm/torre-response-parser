@@ -192,7 +192,9 @@ func OpenToSave(o string, perID int) error {
 
 func LoadToDB(results []Result) error {
 	for i := 0; i < len(results); i++ {
-		fmt.Println("Person N-", i)
+		if i%100 == 0 {
+			fmt.Println("Person N-", i)
+		}
 
 		compID, err := CompensationsSave(results[i].Compensations)
 		if err != nil {
